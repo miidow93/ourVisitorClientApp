@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { constants } from 'src/app/shared/constants';
+import { Regle } from 'src/app/shared/models/regle';
 
 // const API = 'http://localhost:4772/api/regles/';
 
@@ -26,8 +27,16 @@ export class RegleService {
   getRules() {
     return this.http.get(`${API}`)
       .pipe(
-        tap(_ => this.log('add rule')),
-        catchError(this.handleError('add rule', []))
+        tap(_ => this.log('get rules')),
+        catchError(this.handleError('get rules', []))
+      );
+  }
+
+  getRulesByOrder(): Observable<Regle[]> {
+    return this.http.get<Regle[]>(`${API}byorder`)
+      .pipe(
+        tap(_ => this.log('get rule by order')),
+        catchError(this.handleError('get rule by order', []))
       );
   }
 

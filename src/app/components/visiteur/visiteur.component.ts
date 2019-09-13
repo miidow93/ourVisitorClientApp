@@ -78,6 +78,7 @@ export class VisiteurComponent implements OnInit, AfterViewInit {
     if (this.de && this.ds) {
       // console.log('Init');
       if (this.de > this.ds) {
+        console.log(this.de);
         alert('La date d\'entree doit être supérieure à la date de sortie');
       } else {
         // console.log(`Du ${this.de}, Au ${this.ds}`);
@@ -85,11 +86,12 @@ export class VisiteurComponent implements OnInit, AfterViewInit {
         // const filter = this.data.filter(x => x.dateVisite === this.de && x.dateVisite === this.ds);
         // console.log('Filter', filter);
         // console.log('DataSOurce: ', this.dataSource.data);
-        if (filter.length > 0) {
+        this.dataSource.data = filter;
+        /*if (filter.length > 0) {
           this.dataSource.data = filter;
         } else {
           alert('Aucun visiteur dans cette date. Veuillez choisir une nouvelle date');
-        }
+        }*/
       }
     }
   }
@@ -102,17 +104,22 @@ export class VisiteurComponent implements OnInit, AfterViewInit {
     const time = 'T00:00:00';
     if (Number(validateMonth) < 9 && Number(validateDay) < 10) {
       result += `-0${Number(validateMonth) + 1}-0${validateDay}${time}`;
+      // console.log('Resultat 1: ', result);
     } else {
       if (Number(validateMonth) > 9) {
         result += `-${validateMonth}`;
+        // console.log('Resultat 2: ', result);
       } else {
         result += `-0${Number(validateMonth) + 1}`;
+        // console.log('Resultat 3: ', result);
       }
 
-      if (Number(validateDay) > 10) {
+      if (Number(validateDay) >= 10) {
         result += `-${validateDay}${time}`;
+        // console.log('Resultat 4: ', result);
       } else {
         result += `-0${validateDay}${time}`;
+        // console.log('Resultat 5: ', result);
       }
     }
     return result;

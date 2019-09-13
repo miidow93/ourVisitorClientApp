@@ -13,3 +13,39 @@
         </ng-template>
     </ngb-carousel>
 </div>
+
+<!--<mat-horizontal-stepper [linear]="next" #stepper>
+    <mat-step [stepControl]="imageToShow" *ngFor="let image of imageToShow">
+        <ng-template matStepLabel>{{image.nom}}</ng-template>
+        <div class="carousel-item active" *ngIf="image.show === true">
+            <img class="d-block" [src]="createImagePath(image.image)" alt="image.description">
+            <div class="form-row justify-content-end">
+                <button mat-raised-button matStepperPrevious class="mt-2 mr-2">Back</button>
+                <button mat-raised-button matStepperNext class="mt-2">Suivant</button>
+            </div>
+        </div>
+        <div>
+
+        </div>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Fill out your address</ng-template>
+            <mat-form-field>
+                <input matInput placeholder="Address" formControlName="secondCtrl" required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Confirmer</ng-template>
+        You are now done.
+        <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+    </mat-step>
+</mat-horizontal-stepper>-->

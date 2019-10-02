@@ -17,6 +17,7 @@ export class PosteRegleComponent implements OnInit {
 
   constructor(private regleService: RegleService, config: NgbCarouselConfig) {
     config.interval = null;
+    config.wrap = false;
   }
 
   ngOnInit() {

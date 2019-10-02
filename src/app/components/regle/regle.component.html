@@ -4,10 +4,10 @@
   <div class="search-div">
     <button mat-raised-button (click)="onCreate()">
       <i class="fas fa-plus mr-2"></i>
-      <!--<mat-icon>add</mat-icon>-->Create
+      <!--<mat-icon>add</mat-icon>-->Ajouter
     </button>
     <mat-form-field class="ml-2 w-50 search-form-field" floatLabel="never">
-      <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+      <input matInput [(ngModel)]="searchKey" placeholder="Rechercher" autocomplete="off" (keyup)="applyFilter()">
       <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
         <i class="fas fa-times"></i>
         <!--<mat-icon>close</mat-icon>-->

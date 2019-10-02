@@ -8,6 +8,8 @@ import { default as _rollupMoment } from 'moment';
 import { FormControl } from '@angular/forms';
 import { Visiteur } from 'src/app/shared/models/visiteur';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { ExcelService } from 'src/app/core/services/excel/excel.service';
+
 
 const moment = _rollupMoment || _moment;
 
@@ -40,12 +42,12 @@ export class VisiteurComponent implements OnInit, AfterViewInit {
   dateEntree = new FormControl(moment());
   dateSortie = new FormControl(moment());
   de; ds;
-  constructor(private visiteurService: VisiteurService/*, private adapter: DateAdapter<any>*/) { }
+  constructor(private visiteurService: VisiteurService, private excelService: ExcelService) { }
 
   ngOnInit() {
     // this.adapter.setLocale('fr');
     this.visiteurService.getAllVisitors().subscribe(res => {
-      // console.log(res);
+      console.log('Visiteurs: ', res);
       if (res.length > 0) {
         this.dataSource.data = res;
         this.oldDataSource = this.dataSource.data;
@@ -94,6 +96,12 @@ export class VisiteurComponent implements OnInit, AfterViewInit {
         }*/
       }
     }
+  }
+
+  exporter() {
+    console.log('Date: ', this.de + ' ' + this.ds);
+    const date = { dateEntree: this.de, dateSortie: this.ds };
+    this.excelService.exportToExcel(date).subscribe(res => console.log('Export: ', res));
   }
 
   validateDate(date) {

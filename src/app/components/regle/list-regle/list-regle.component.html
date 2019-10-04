@@ -1,6 +1,6 @@
 <div class="container mt-2">
     <h2>Listes des règles</h2>
-    <ngb-carousel *ngIf="imageToShow">
+    <ngb-carousel *ngIf="imageToShow && imageToShow.length > 0; else emptyImage">
         <ng-template ngbSlide *ngFor="let image of imageToShow">
             <div class="carousel-item active" *ngIf="image.show === true">
                 <img class="d-block w-100" [src]="createImagePath(image.image)" alt="Random first slide">
@@ -12,6 +12,9 @@
             </div>
         </ng-template>
     </ngb-carousel>
+    <ng-template #emptyImage>
+        <img src="../../../../assets/images/Bienvenue.jpg" alt="posteRegle"/>
+    </ng-template>
 </div>
 
 <!--<mat-horizontal-stepper [linear]="next" #stepper>

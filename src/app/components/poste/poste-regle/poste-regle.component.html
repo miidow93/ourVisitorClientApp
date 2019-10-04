@@ -1,27 +1,41 @@
-<div class="myContainer">
+<div>
     <div class="col-12">
         <h2 class="text-center">Cher visiteur</h2>
-        <h5 class="text-center"> pour le bon déroulement de votre visite , Veuillez respécter nos <span class="myregle">
-                régles</span></h5>
+        <h5 class="text-center">
+            pour le bon déroulement de votre visite , Veuillez respécter nos
+            <span class="myregle"> régles</span>
+        </h5>
     </div>
     <div class="justify-content-md-center">
-        <ngb-carousel *ngIf="imageToShow" style=" margin: auto; width: 65%; ">
-            <ng-template ngbSlide *ngFor="let image of imageToShow ; let i = index">
-
+        <ngb-carousel *ngIf="imageToShow && imageToShow.length > 0; else emptyImage"
+            style=" margin: auto; width: 65%; ">
+            <ng-template ngbSlide *ngFor="let image of imageToShow; let i = index">
                 <div class="carousel-item active" *ngIf="image.show === true">
-                    <img class="d-block w-100 img-carousel " [src]="createImagePath(image.image)"
-                        alt="Random first slide">
+                    <img class="d-block w-100 img-carousel" [src]="createImagePath(image.image)"
+                        alt="Random first slide" />
 
                     <div class="carousel-caption">
-                        <h3>{{image.nom}}</h3>
-                        <p>{{image.description}}</p>
-                        <div class="mt-2 d-flex justify-content-center " *ngIf="i === imageLength-1">
-                            <button class="btn btn-success wideButton" [routerLink]="['/poste']">Je m'engage, je partage, j'agis</button>
+                        <h3>{{ image.nom }}</h3>
+                        <p>{{ image.description }}</p>
+                        <div class="mt-2 d-flex justify-content-center " *ngIf="i === imageLength - 1">
+                            <button class="btn btn-success wideButton" [routerLink]="['/poste']">
+                                Je m'engage, je partage, j'agis
+                            </button>
                         </div>
                     </div>
                 </div>
             </ng-template>
         </ngb-carousel>
-    </div>
 
+        <ng-template #emptyImage>
+
+            <div class="containerImg">
+                <img src="../../../../assets/images/Bienvenue.jpg" class="d-block w-100" alt="posteRegle" />
+
+                <button class="btn btn-success btnImg" [routerLink]="['/poste']">
+                    Je m'engage, je partage, j'agis
+                </button>
+            </div>
+        </ng-template>
+    </div>
 </div>

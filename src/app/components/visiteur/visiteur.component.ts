@@ -9,7 +9,8 @@ import { FormControl } from '@angular/forms';
 import { Visiteur } from 'src/app/shared/models/visiteur';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { ExcelService } from 'src/app/core/services/excel/excel.service';
-
+import * as uuid from 'uuid';
+import { saveAs } from 'file-saver/';
 
 const moment = _rollupMoment || _moment;
 
@@ -100,8 +101,20 @@ export class VisiteurComponent implements OnInit, AfterViewInit {
 
   exporter() {
     console.log('Date: ', this.de + ' ' + this.ds);
-    const date = { dateEntree: this.de, dateSortie: this.ds };
-    this.excelService.exportToExcel(date).subscribe(res => console.log('Export: ', res));
+    const date = { startDate: this.de.toString(), endDate: this.ds.toString() };
+    console.log('Test: ', date);
+    this.excelService.exportToExcel(date).subscribe(res => {
+      console.log('Res: ', res);
+      const blob = new Blob([res], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+      const url = window.URL.createObjectURL(blob);
+      const pwa = window.open(url);
+      // const filename = uuid.v4();
+      const filename = 'ourvisitor_' + moment(new Date()).format('DDMMYYYY_hhmmssSSS');
+      saveAs(blob, `${filename}.xlsx`);
+      if(!pwa || pwa.closed || typeof pwa.closed === 'undefined') {
+        alert('Please disable your Pop-up blocker and try again.');
+      }
+    });
   }
 
   validateDate(date) {
@@ -114,8 +127,8 @@ export class VisiteurComponent implements OnInit, AfterViewInit {
       result += `-0${Number(validateMonth) + 1}-0${validateDay}${time}`;
       // console.log('Resultat 1: ', result);
     } else {
-      if (Number(validateMonth) > 9) {
-        result += `-${validateMonth}`;
+      if (Number(validateMonth) >= 9) {
+        result += `-${Number(validateMonth) + 1}`;
         // console.log('Resultat 2: ', result);
       } else {
         result += `-0${Number(validateMonth) + 1}`;
